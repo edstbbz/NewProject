@@ -1,17 +1,24 @@
-import AppHeader from '../components/header/header';
-import login from '../components/login/login';
+import Login from '../components/login/login';
+import Simulator from '../components/simutalor/simulator';
+import Home from '../components/home/home';
 
 const routes = [
     {
         name: 'home',
         path: '/',
-        component: AppHeader,
+        component: Home,
         exact: true
     },
     {
         name: 'login',
         path: '/login',
-        component: login,
+        component: Login,
+        exact: true
+    },
+    {
+        name: 'simulator',
+        path: '/simulator',
+        component: Simulator,
         exact: true
     }
 ]
