@@ -1,0 +1,48 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba($color: #00e5ff, $alpha: 1.0);
+    &_title {
+        padding: 1rem;
+        margin: 0rem;
+        @media screen and (max-width: 450px) {
+            padding: 0.3rem 1rem;
+            line-height: 2.5rem;
+            font-size: 2rem;
+        }
+    }
+    &_nav {
+        display: flex;
+        margin: 0;
+        &-item{
+            text-decoration: none;
+            color: #000;
+            &:hover {
+                text-decoration: underline;
+            }
+            @media screen and (max-width: 450px) {
+                font-size: 1rem;
+            }
+        }
+        li {
+            list-style-type: none;
+            line-height: 4rem;
+            margin: 0 1rem;
+            @media screen and (max-width: 450px) {
+                line-height: 2.5rem;
+                margin: 0 0.5rem;
+            }
+        }
+        @media screen and (max-width: 450px) {
+            padding: 0 0.5rem;
+        }
+    }
+    @media screen and (max-width: 450px) {
+        display: block;
+        margin: 0;
+    }
+}
+
+.active {
+    color: white;
+}

@@ -61,7 +61,7 @@ return {
              ]
           },
           {
-            test: /^((?!\.module).)*s[ac]ss$/,
+            test: /\.s[ac]ss$/,
             use: [
                {
                   loader: MiniCssExtractPlugin.loader,
