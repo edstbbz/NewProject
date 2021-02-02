@@ -1,0 +1,50 @@
+.authForm {
+  width: calc(100%/12 * 4 - 1rem);
+  margin: 3rem;
+}
+
+.authLabel {
+  input {
+    display: block;
+    margin: 0 auto;
+    width: calc(100% - 0.5rem);
+    height: 1.5rem;
+    border: 0.15rem solid rgb(161, 161, 161);
+    border-radius: 0.5rem;
+  }
+  .errorMessage {
+    color: rgb(218, 50, 50);
+    font-size: 0.8rem;
+  }
+}
+
+.fieldSet {
+  padding: 1rem;
+  border: 0.15rem solid rgb(161, 161, 161);
+  border-radius: 2rem;
+  background-color: rgba(249, 255, 255, 0.644);
+}
+
+.button_success {
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  line-height: 2rem;
+  background-color: #ccff90;
+  width: 100%;
+  &:hover {
+    box-shadow: 0 0.1rem 0.2rem 0 rgba(0,0,0,0.24), 0 0.2rem 0.3rem 0 rgba(0,0,0,0.19);
+  }
+  &:focus{
+      outline: none;
+      border: none;
+  }
+  &:active {
+    transform: translateY(2px);
+  }
+}
+
+.loginPage{
+  display: flex;
+  justify-content: space-around;
+}

@@ -22,8 +22,13 @@ export default class extends React.Component {
               </NavLink>
             </li>
             <li>
+              <NavLink to={routesMap.signup} className="header_nav-item">
+                Sign Up
+              </NavLink>
+            </li>
+            <li>
               <NavLink to={routesMap.login} className="header_nav-item">
-                Sign up&nbsp;/&nbsp;Log in
+                Log In
               </NavLink>
             </li>
           </ul>

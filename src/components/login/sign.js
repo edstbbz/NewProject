@@ -1,20 +1,12 @@
 import React from "react";
-import logStore from "../../store/log";
+import signStore from "../../store/sign";
 import { observer } from "mobx-react";
 import "./login.module.scss";
 
 @observer
 export default class extends React.Component {
-    ls(e) {
-        e.preventDefault();
-        let name = logStore.userInfo.name;
-        let pas = logStore.userInfo.password;
-        localStorage.setItem('name', logStore.userInfo.name)
-        localStorage.setItem('pass', logStore.userInfo.password)
-
-    }
   render() {
-    let formLogInFields = logStore.formData.map((field, i) => {
+    let formFields = signStore.formData.map((field, i) => {
       return (
         <label key={field.name} className="authLabel">
           <p> {field.label} </p>
@@ -22,7 +14,7 @@ export default class extends React.Component {
             type="text"
             placeholder={field.placeholder}
             value={field.value}
-            onChange={(e) => logStore.change(i, e.target.value)}
+            onChange={(e) => signStore.change(i, e.target.value)}
           ></input>
           <p className="errorMessage">
             {field.valid === null || field.valid ? "" : field.errorMessage}
@@ -34,13 +26,13 @@ export default class extends React.Component {
     return (
       <React.Fragment>
         <div className="loginPage">
-          <form className="authForm" onSubmit={this.ls}>
+          <form className="authForm">
             <fieldset className="fieldSet">
-              <h2>Log In</h2>
+              <h2>Sign Up</h2>
               <hr />
-              {formLogInFields}
+              {formFields}
               <hr />
-              <button type='submit' className="button_success" disabled={!logStore.isValid} onClick={this.ld}>Log In</button>
+              <button type='submit' className="button_success" disabled={!signStore.isValid} onClick={console.log(signStore.name)}>Sign Up</button>
             </fieldset>
           </form>
         </div>

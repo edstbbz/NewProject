@@ -1,7 +1,7 @@
 import Login from '../components/login/login';
 import Simulator from '../components/simutalor/simulator';
 import Home from '../components/home/home';
-
+import Sign from '../components/login/sign'
 const routes = [
     {
         name: 'home',
@@ -20,7 +20,14 @@ const routes = [
         path: '/simulator',
         component: Simulator,
         exact: true
-    }
+    },
+    {
+        name: 'signup',
+        path: '/sign up',
+        component: Sign,
+        exact: true
+    },
+
 ]
 
 const routesMap = {};
