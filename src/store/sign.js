@@ -19,7 +19,7 @@ class Order {
       placeholder: "Enter your email",
       errorMessage: "Enter correct email",
       valid: null,
-      validator: (val) => /^[aA-zZ]+@[aA-zZ]+$/.test(val),
+      validator: (val) => /^[aA-zZ]+@[aA-zZ]+.[a-z]+$/.test(val),
     },
     {
       name: "password",
@@ -35,7 +35,7 @@ class Order {
       label: "Password confirmed:",
       value: "",
       placeholder: "Password confirmed",
-      errorMessage: "Enter correct password (4-12 symbol)",
+      errorMessage: "Password does not match",
       valid: null,
       validator: (val) => /^[0-9]{4,12}$/.test(val),
     },

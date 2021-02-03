@@ -1,0 +1,43 @@
+.start_info {
+    margin: 0 2rem;
+    h1 {
+        font-size: 3rem;
+        margin: 0;
+        padding: 2rem 0;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    li {
+        font-size: 1rem;
+    }
+}
+
+.go_task {
+    margin: 0 3rem;
+    h2 {
+        color: red;
+        font-size: 3rem;
+    }
+    .btn_complete {
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        line-height: 2rem;
+        color: #000;
+        background-color: #70e0fc;
+        padding: 1rem 2rem;
+        font-size: 1.5rem;
+        text-decoration: none;
+        &:hover {
+          box-shadow: 0 0.1rem 0.2rem 0 rgba(0,0,0,0.24), 0 0.2rem 0.3rem 0 rgba(0,0,0,0.19);
+        }
+        &:focus{
+            outline: none;
+            border: none;
+        }
+        &:active {
+          transform: translateY(2px);
+        }
+    }
+}
