@@ -1,9 +1,16 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { routesMap } from "../../router/routes";
-import './home.module.scss';
+import Slider from '../../components/slider/slider'
+import "./home.module.scss";
+
+
 export default class extends React.Component {
+ 
+
   render() {
+   
+
     return (
       <React.Fragment>
         <div className="start_info">
@@ -16,12 +23,13 @@ export default class extends React.Component {
             <li>..and more</li>
           </ul>
         </div>
-        <div className='go_task'>
+        <div className="go_task">
           <h2>Go to task!</h2>
           <Link to={routesMap.simulator} className="btn_complete">
-                Simulator
-              </Link>
+            Simulator
+          </Link>
         </div>
+        <Slider/>
       </React.Fragment>
     );
   }

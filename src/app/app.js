@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./app.module.scss";
-import Header from "../header/header.js";
-import { routesMap, routes } from "../../router/routes";
+import Header from "../components/header/header.js";
+import { routes } from "../router/routes";
 
 export default class extends React.Component {
   render() {

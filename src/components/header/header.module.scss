@@ -23,6 +23,7 @@
             @media screen and (max-width: 650px) {
                 font-size: 1rem;
             }
+            
         }
         li {
             list-style-type: none;
@@ -41,8 +42,8 @@
         display: block;
         margin: 0;
     }
+    .active {
+        color: white;
+    }
 }
 
-.active {
-    color: white;
-}

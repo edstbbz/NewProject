@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import AuthForm from '../../components/authForm/authForm';
 import { observer } from "mobx-react";
 import "./login.module.scss";
 
@@ -40,26 +41,14 @@ export default class extends React.Component {
     });
 
     return (
-      <React.Fragment>
-        <div className="loginPage">
-          <form className="authForm">
-            <fieldset className="fieldSet">
-              <h2>{this.props.name}</h2>
-              <hr />
-              {formFields}
-              <hr />
-              <button
-                type="submit"
-                className="button_success"
-                disabled={!this.props.store.isValid}
-                onClick={this.ls}
-              >
-                {this.props.name}
-              </button>
-            </fieldset>
-          </form>
-        </div>
-      </React.Fragment>
+      <AuthForm 
+      name={this.props.name}
+      disabled={!this.props.store.isValid}
+      onClick={this.ls}
+
+      >
+        {formFields}
+      </AuthForm>
     );
   }
 }

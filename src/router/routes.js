@@ -1,7 +1,9 @@
-import Login from '../components/login/login';
-import Simulator from '../components/simutalor/simulator';
-import Home from '../components/home/home';
-import Sign from '../components/login/sign'
+import Login from '../pages/login/login';
+import Simulator from '../pages/simutalor/simulator';
+import Base from '../pages/simutalor/base';
+import Average from '../pages/simutalor/average'
+import Home from '../pages/home/home';
+import Sign from '../pages/login/sign'
 const routes = [
     {
         name: 'home',
@@ -19,6 +21,18 @@ const routes = [
         name: 'simulator',
         path: '/simulator',
         component: Simulator,
+        exact: true
+    },
+    {
+        name: 'base',
+        path: '/simulator/base',
+        component: Base,
+        exact: true
+    },
+    {
+        name: 'average',
+        path: '/simulator/average',
+        component: Average,
         exact: true
     },
     {
