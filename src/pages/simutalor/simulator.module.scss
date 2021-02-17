@@ -1,5 +1,7 @@
 .simulator {
   display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
   &_nav {
     margin: 2rem;
     width: 15rem;
@@ -13,7 +15,9 @@
       text-decoration: underline;
     }
   }
-
+  &_create {
+    width: calc(100% - 30rem);
+  }
   ul {
     padding: 0;
   }

@@ -6,7 +6,7 @@ export default class extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="container">
+        <div className="_container">
           <div className="wrap_footer"></div>
           <div className="wrap_container">
               <Wrap/>

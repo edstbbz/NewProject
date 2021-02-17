@@ -12,8 +12,9 @@ body {
   position: relative;
 }
 .app {
-  height: calc(100vh - 116px);
+  min-height: calc(100vh - 116px);
   margin: 0 auto;
+  background-color: #b2ebf263;
 }
 
 footer {

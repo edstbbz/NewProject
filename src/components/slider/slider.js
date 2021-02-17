@@ -1,9 +1,10 @@
 import React from "react";
 import Slider from "react-slick";
+
 import "./slider.module.scss";
 
 const url =
-  "https://pixabay.com/api/?key=20274303-821af1610ad5ac847c6179809&q=математика+классная_доска&per_page=5&min_height=360&image_type=all&pretty=true";
+  "https://pixabay.com/api/?key=20274303-821af1610ad5ac847c6179809&q=математика+геометрия&per_page=5&min_height=360&image_type=all&pretty=true";
 export default class extends React.Component {
   state = {
     img: [],
@@ -46,7 +47,8 @@ export default class extends React.Component {
       autoplay: true,
       slidesToShow: 1,
       slidesToScroll: 1,
-      pauseOnFocus: true
+      pauseOnFocus: true,
+      arrows: false
     };
     return (
       <React.Fragment>

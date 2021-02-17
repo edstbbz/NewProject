@@ -1,8 +1,8 @@
 .authForm {
-  width: calc(100%/12 * 6 - 1rem);
+  width: calc(100% / 12 * 6 - 1rem);
   margin: 3rem;
   @media screen and (max-width: 650px) {
-    width: calc(100%/12 * 12 - 1rem);
+    width: calc(100% / 12 * 12 - 1rem);
     margin: 1rem;
   }
 }
@@ -18,6 +18,12 @@
     height: 2rem;
     border: 0.15rem solid rgb(161, 161, 161);
     border-radius: 0.5rem;
+    &:active {
+      outline: none;
+    }
+    &:focus {
+      outline: none;
+    }
     @media screen and (max-width: 650px) {
       height: 1.5rem;
     }
@@ -29,7 +35,6 @@
     margin-left: 1rem;
     transform: translateY(30%);
   }
-  
 }
 
 .fieldSet {
@@ -39,10 +44,9 @@
   background-color: rgba(249, 255, 255, 0.644);
   h2 {
     @media screen and (max-width: 450px) {
-    margin: 0;
+      margin: 0;
     }
   }
-
 }
 
 .button_success {
@@ -53,18 +57,19 @@
   background-color: #b8ff66;
   width: 100%;
   &:hover {
-    box-shadow: 0 0.1rem 0.2rem 0 rgba(0,0,0,0.24), 0 0.2rem 0.3rem 0 rgba(0,0,0,0.19);
+    box-shadow: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.24),
+      0 0.2rem 0.3rem 0 rgba(0, 0, 0, 0.19);
   }
-  &:focus{
-      outline: none;
-      border: none;
+  &:focus {
+    outline: none;
+    border: none;
   }
   &:active {
     transform: translateY(2px);
   }
 }
 
-.loginPage{
+.loginPage {
   display: flex;
   justify-content: space-around;
 }

@@ -1,0 +1,18 @@
+.window {
+    
+    margin: 4rem 2rem;
+    &_footer {
+        background: linear-gradient(45deg, #EEEEEE, #e0f7fa, #b2ebf2);
+        border-top: 1px solid rgba(0, 0, 0, 0.329);
+        border-left: 1px solid rgba(0, 0, 0, 0.329);
+        border-right: 1px solid rgba(0, 0, 0, 0.329);
+    height: 2rem;
+    }
+    &_container {
+        border: 1px solid rgba(0, 0, 0, 0.329);
+        padding: 3rem;
+        min-height: 500px;
+        background-color: rgba(103, 229, 252, 0.363);
+
+    }
+}
