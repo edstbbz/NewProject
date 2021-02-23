@@ -3,7 +3,7 @@ import Simulator from '../pages/simutalor/simulator';
 import Base from '../pages/simutalor/base';
 import Average from '../pages/simutalor/average'
 import Home from '../pages/home/home';
-import Sign from '../pages/login/sign'
+import Sign from '../pages/login/sign';
 const routes = [
     {
         name: 'home',
@@ -25,7 +25,7 @@ const routes = [
     },
     {
         name: 'base',
-        path: '/simulator/base',
+        path: '/simulator/base/:id',
         component: Base,
         exact: true
     },

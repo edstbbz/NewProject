@@ -7,6 +7,16 @@ body {
   min-height: 100%;
   position: relative;
 }
+
+input {
+  background: unset;
+  color: currentcolor;
+}
+
+select {
+  background: unset;
+  color: currentcolor;
+}
 #root {
   //height: calc(100vh - 30px - 18px);
   position: relative;
@@ -14,7 +24,7 @@ body {
 .app {
   min-height: calc(100vh - 116px);
   margin: 0 auto;
-  background-color: #b2ebf263;
+  background-color: #f6feff27;
 }
 
 footer {
@@ -24,7 +34,7 @@ footer {
 
 .app_footer {
   height: 100%;
-  background-color: rgba($color: #b2ebf2, $alpha: 1);
+  box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.459);
 }
 
 .copy {

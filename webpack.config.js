@@ -29,6 +29,18 @@ return {
              }
           },
           {
+            test: /\.(png|jpg|gif|webp)$/i,
+            use: [
+              {
+                loader: 'url-loader',
+                options: {
+                  limit: false,
+                  name: '[name].[ext]'
+                },
+              },
+            ],
+          },
+          {
              test: /\.module\.css$/,
              use: [
                 {

@@ -9,6 +9,7 @@
   border-radius: 0.5rem;
   @media screen and (max-width: 650px) {
     height: 1.5rem;
+    font-size: 1rem;
   }
   &:active {
     outline: none;
@@ -18,23 +19,3 @@
   }
 }
 
-.button_return {
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  line-height: 2rem;
-  height: 3rem;
-  background-color: #fcff66;
-  width: 30%;
-  &:hover {
-    box-shadow: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.24),
-      0 0.2rem 0.3rem 0 rgba(0, 0, 0, 0.19);
-  }
-  &:focus {
-    outline: none;
-    border: none;
-  }
-  &:active {
-    transform: translateY(2px);
-  }
-}

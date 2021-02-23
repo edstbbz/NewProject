@@ -1,18 +1,60 @@
 .window {
-    
-    margin: 4rem 2rem;
-    &_footer {
-        background: linear-gradient(45deg, #EEEEEE, #e0f7fa, #b2ebf2);
-        border-top: 1px solid rgba(0, 0, 0, 0.329);
-        border-left: 1px solid rgba(0, 0, 0, 0.329);
-        border-right: 1px solid rgba(0, 0, 0, 0.329);
+  margin: 4rem auto;
+  &_footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.329);
+    border-left: 1px solid rgba(0, 0, 0, 0.329);
+    border-right: 1px solid rgba(0, 0, 0, 0.329);
+    border-radius: 10px 10px 0 0;
+    box-shadow: inset 2px 2px 15px rgba(78, 77, 77, 0.4);
     height: 2rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  &_container {
+    border: 1px solid rgba(0, 0, 0, 0.329);
+    border-radius: 0 0 10px 10px;
+    padding: 2rem;
+    background-color: rgba(240, 243, 243, 0.062);
+    @media screen and (max-width: 1050px) {
+      padding: 1rem;
     }
-    &_container {
-        border: 1px solid rgba(0, 0, 0, 0.329);
-        padding: 3rem;
-        min-height: 500px;
-        background-color: rgba(103, 229, 252, 0.363);
-
-    }
+  }
+  @media screen and (max-width: 1050px) {
+    margin: 2rem 1rem;
+  }
+  @media screen and (max-width: 650px) {
+    margin: 1rem 1rem;
+  }
+}
+.dots {
+  content: "";
+  margin-left: 2.5rem;
+  background-color: rgb(255, 255, 81);
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 0.1px solid rgba(0, 0, 0, 0.363);
+  &::before {
+    content: "";
+    position: absolute;
+    left: 1rem;
+    top: 7px;
+    background-color: #ff4b4bee;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    border: 0.1px outset rgba(0, 0, 0, 0.363);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    left: 4rem;
+    top: 7px;
+    background-color: rgb(15, 252, 15);
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    border: 0.1px outset rgba(0, 0, 0, 0.363);
+  }
 }

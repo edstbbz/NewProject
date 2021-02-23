@@ -2,13 +2,15 @@ import React from "react";
 import "./window.module.scss";
 
 const WindowBoard = (props) => {
+  const classes = ["window_container", [props.classWindow]];
+  const classes1 = ["window", [props.classWinDow]]
   return (
     <React.Fragment>
-      <div className="window">
-        <div className="window_footer"></div>
-        <div className="window_container">
-          {props.children}
+      <div className={classes1.join(" ")} style={props.style}>
+        <div className="window_footer">
+          <div className="dots"></div>
         </div>
+        <div className={classes.join(" ")}>{props.children}</div>
       </div>
     </React.Fragment>
   );

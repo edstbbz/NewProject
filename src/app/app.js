@@ -16,7 +16,6 @@ export default class extends React.Component {
         />
       );
     });
-
     return (
       <BrowserRouter>
         <React.Fragment>

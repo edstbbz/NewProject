@@ -1,9 +1,9 @@
 import React from "react";
-import style from "./loading.module.scss";
+import "./loading.module.scss";
 
 const Loader = (props) => (
-  <div className={style.center}>
-    <div className={style.Loader}>
+  <div className='center'>
+    <div className='Loader'>
       <div />
       <div />
     </div>

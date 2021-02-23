@@ -1,28 +1,30 @@
 import React from "react";
+import Button from "../button/Button";
+import WindowBoard from "../wrap/window";
 
 const AuthForm = (props) => {
-  console.log(props.onClick);
   return (
-    <React.Fragment>
-      <div className="loginPage">
+    <div className='authPage_container'>
+      <WindowBoard classWinDow={'authPage_window'}> 
         <form className="authForm">
           <fieldset className="fieldSet">
             <h2>{props.name}</h2>
             <hr />
             {props.children}
-            <hr />
-            <button
-              type="submit"
-              className="button_success"
+            <pre/>
+            <Button
+              type="success"
+              style={{ height: "3rem", width: "100%", margin: "1rem 0rem"}}
               disabled={props.disabled}
               onClick={props.onClick}
             >
               {props.name.toUpperCase()}
-            </button>
+            </Button>
           </fieldset>
         </form>
-      </div>
-    </React.Fragment>
+    </WindowBoard>
+    </div>
+    
   );
 };
 

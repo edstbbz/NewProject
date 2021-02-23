@@ -1,56 +1,84 @@
 import React from "react";
 import PropTypes from "prop-types";
 import BaseData from "../../store/baseMath";
+import Modal from "../../components/modal/modalBody";
 import { observer } from "mobx-react";
+import { routesMap } from "../../router/routes";
+import { Redirect } from "react-router-dom";
+import Button from "../../components/button/Button";
 
 @observer
 export default class extends React.Component {
   static propTypes = {
-    dataz: PropTypes.object,
+    data: PropTypes.object,
   };
 
   state = {
     cnt: 0,
+    isModalOpen: false,
+    redirect: false,
   };
 
   increase = () => {
     this.setState({ cnt: this.state.cnt + 1 });
+    this.setState({ isModalOpen: true });
   };
 
+  closeModal() {
+    this.setState({ isModalOpen: false });
+    this.setState({ redirect: true });
+  }
+
+  redirectTo() {
+    this.setState({ redirect: false });
+  }
+
+  componentDidUpdate() {
+    if (this.state.redirect === true) {
+      this.redirectTo();
+    }
+  }
+
   render() {
+    if (this.state.redirect === true) {
+      return <Redirect to={routesMap.simulator}></Redirect>;
+    }
+
     let data = BaseData.baseMath.map((field, i) => {
       return (
-        <div key={field.name} className="simulator_area">
-          <h2>{field.label}</h2>
+        <div key={field.id} className="simulator_area">
+          <h2>{field.testname}</h2>
           <hr />
-          <div className='wrap'>
-            <span>{field.expression_first}</span>
-            <span>&times;</span>
-            <span>{field.expression_last}</span>
+          <div className="wrap">
+            <span>{field.first}</span>
+            <span>{field.operation}</span>
+            <span>{field.second}</span>
             <span>=</span>
             <input type="text" className="value_area" size={5}></input>
           </div>
-          <div className='wrap'>
-            <button
-              className="btn_checked"
+          <div className="wrap">
+            <Button
+              style={{ height: "3rem", width: "50%" }}
+              type="primary"
               onClick={(e) =>
                 BaseData.change(i, document.querySelector(".value_area").value)
               }
             >
               Check
-            </button>
-            <button
-              className="btn_help"
+            </Button>
+            <Button
+              type="help"
+              style={{ height: "3rem", width: "40%" }}
               onClick={(e) =>
                 BaseData.help(i, document.querySelector(".answer"))
               }
             >
               Help
-            </button>
+            </Button>
           </div>
 
-          <p className="error">
-            {field.valid === null || field.value === ""
+          <p className="error_answer">
+            {field.valid == null || field.value === ""
               ? ""
               : field.valid
               ? field.congrate
@@ -58,17 +86,32 @@ export default class extends React.Component {
           </p>
           <p className="answer"></p>
           <hr />
-          <button
-            className="button_success"
+          <Button
+            type="success"
+            style={{ height: "3rem", width: "100%", margin: "1rem 0"}}
             onClick={this.increase}
             disabled={!field.valid}
           >
-            Next
-          </button>
+            {this.state.cnt + 1 == BaseData.baseMath.length
+              ? "Finish test"
+              : "Next task"}
+          </Button>
         </div>
       );
     });
 
-    return <React.Fragment>{data[this.state.cnt]}</React.Fragment>;
+    return (
+      <React.Fragment>
+        {data[this.state.cnt]}
+        {this.state.cnt == data.length ? (
+          <Modal
+            isOpen={this.state.isModalOpen}
+            onClose={() => this.closeModal()}
+          >
+            Congratulations, you have completed all tasks!
+          </Modal>
+        ) : null}
+      </React.Fragment>
+    );
   }
 }

@@ -11,13 +11,16 @@
   margin: 0 auto;
   width: calc(100% - 0.5rem);
   height: 2rem;
-  border: 0.15rem solid rgb(161, 161, 161);
-  border-radius: 0.5rem;
-  @media screen and (max-width: 650px) {
-    height: 1.5rem;
-  }
+  border: none;
+  border-bottom: 0.15rem solid rgb(161, 161, 161);
   display: block;
   box-sizing: border-box;
   outline: none;
-  transition: all 300ms ease-in-out;
+  transition: all 600ms ease-in-out;
+  
+}
+
+.Select select option{
+background: unset;
+color: #000;
 }
