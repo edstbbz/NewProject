@@ -1,12 +1,18 @@
 import React from "react";
-import CreateTest from "../../store/createTest";
 import Select from "../Select/select";
-import { observer } from "mobx-react";
+import { inject, observer } from "mobx-react";
 import "./createTest.module.scss";
 import Button from "../button/Button";
+import fetchHelper from "../../api/fetchHelper";
+import { TO_DATABASE } from "../../api/httpConst";
 
+@inject("store")
 @observer
 export default class extends React.Component {
+  constructor(props) {
+    super(props);
+    this.store = this.props.store.CreateTestBase;
+  }
   state = {
     test: [],
     operation: "\u002B",
@@ -24,9 +30,9 @@ export default class extends React.Component {
     const test = this.state.test;
     const index = test.length + 1;
     let testname = this.state.testName;
-    let first = CreateTest.formInfo.first;
-    let second = CreateTest.formInfo.second;
-    let answer = CreateTest.formInfo.answer;
+    let first = this.store.formInfo.first;
+    let second = this.store.formInfo.second;
+    let answer = this.store.formInfo.answer;
 
     const testItem = {
       testname: testname.toUpperCase(),
@@ -54,18 +60,12 @@ export default class extends React.Component {
 
   createTestHandler = async (e, props) => {
     e.preventDefault();
+    let url = `${TO_DATABASE}tests.json`;
+    let data = this.state.test;
+    let method = "POST";
+
     try {
-      await fetch(
-        "https://newapp-cf6c2-default-rtdb.firebaseio.com/tests.json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-          mode: "cors",
-          body: JSON.stringify(this.state.test),
-        }
-      );
+      await fetchHelper(url, method, data);
 
       this.setState({
         test: [],
@@ -115,13 +115,13 @@ export default class extends React.Component {
   };
 
   resetValueHandler = (e) => {
-    CreateTest.testForm.map((field) => {
+    this.store.testForm.map((field) => {
       field.value = "";
     });
   };
 
   render() {
-    let formFields = CreateTest.testForm.map((field, i) => {
+    let formFields = this.store.testForm.map((field, i) => {
       return (
         <label key={field.name} className="authLabel">
           <div className="authName">
@@ -135,7 +135,7 @@ export default class extends React.Component {
             type="text"
             placeholder={field.placeholder}
             value={field.value}
-            onChange={(e) => CreateTest.change(i, e.target.value)}
+            onChange={(e) => this.store.change(i, e.target.value)}
           ></input>
         </label>
       );
@@ -143,7 +143,12 @@ export default class extends React.Component {
 
     const select = (
       <Select
-      style={{fontSize: '1.5rem', height: '2.5rem', width: '20%', margin: '0'}}
+        style={{
+          fontSize: "1.5rem",
+          height: "2.5rem",
+          width: "20%",
+          margin: "0",
+        }}
         label="Change operation:"
         value={this.state.operation}
         required={this.state.requiredSelect}
@@ -211,7 +216,7 @@ export default class extends React.Component {
                   style={{ height: "3rem", width: "100%" }}
                   type="success"
                   onClick={this.addQuestionHandler}
-                  disabled={!CreateTest.isValid}
+                  disabled={!this.store.isValid}
                 >
                   Add a question
                 </Button>
@@ -243,7 +248,12 @@ export default class extends React.Component {
                   Go to create
                 </Button>
                 <hr />
-                <p style={{ color: "rgba(252, 63, 63, 0.644)", fontSize: "2.5 rem" }}>
+                <p
+                  style={{
+                    color: "rgba(252, 63, 63, 0.644)",
+                    fontSize: "2.5 rem",
+                  }}
+                >
                   In order to create a test, you need to create at least 5
                   tasks!
                 </p>

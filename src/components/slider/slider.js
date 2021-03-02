@@ -1,10 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
+import { IMG_SLIDER_V1, IMG_SLIDER_V2} from "../../api/httpConst";
 import "./slider.module.scss";
 
-const url =
-  "https://pixabay.com/api/?key=20274303-821af1610ad5ac847c6179809&q=математика+геометрия+доска&per_page=5&max_height=360&image_type=all&pretty=true";
-const url1 = "https://newapp-cf6c2-default-rtdb.firebaseio.com/sliderPic.json";
 export default class extends React.Component {
   state = {
     img: [],
@@ -12,7 +10,7 @@ export default class extends React.Component {
 
   async componentDidMount() {
     try {
-      let response = await fetch(url1);
+      let response = await fetch(IMG_SLIDER_V1);
       let data = await response.json();
       const img = [];
       data.forEach((field, i) => {
@@ -25,7 +23,7 @@ export default class extends React.Component {
       });
     } catch (e) {
       try {
-        let response = await fetch(url);
+        let response = await fetch(IMG_SLIDER_V2);
         let data = await response.json();
         let images = data.hits;
         const img = [];

@@ -1,22 +1,20 @@
 import React from "react";
 import { observable, computed, action } from "mobx";
+import { TO_DATABASE } from "../api/httpConst";
 
 class BaseMath extends React.Component {
   @observable baseMath = [];
   @action async Render(ind) {
+    let url = `${TO_DATABASE}tests/${ind}.json`;
     try {
-      let response = await fetch(
-        `https://newapp-cf6c2-default-rtdb.firebaseio.com/tests/${ind}.json`
-      );
+      let response = await fetch(url);
       let data = await response.json();
       this.baseMath = data;
     } catch (e) {
       console.log(e);
     }
-    console.log(this.baseMath);
   }
 
- 
   @computed get isValid() {
     return this.baseMath.every((field) => field.valid);
   }

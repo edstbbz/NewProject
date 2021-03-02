@@ -6,7 +6,7 @@ const AuthForm = (props) => {
   return (
     <div className='authPage_container'>
       <WindowBoard classWinDow={'authPage_window'}> 
-        <form className="authForm">
+        <form className="authForm" onSubmit={props.onSubmit}>
           <fieldset className="fieldSet">
             <h2>{props.name}</h2>
             <hr />
@@ -20,6 +20,8 @@ const AuthForm = (props) => {
             >
               {props.name.toUpperCase()}
             </Button>
+            {props.clientWidth < 500 ? null : <pre/>}
+            {props.auth}
           </fieldset>
         </form>
     </WindowBoard>

@@ -1,25 +1,29 @@
 import React from "react";
 import Wrap from "./wrap";
-import BaseData from "../../store/baseMath";
 import Loader from "../../components/loading/loading";
 import "./wrap.module.scss";
-import { observer } from "mobx-react";
+import { inject, observer } from "mobx-react";
 import WindowBoard from "../../components/wrap/window";
 
+@inject('store')
 @observer
 export default class extends React.Component {
+  constructor(props){
+    super(props)
+    this.store = this.props.store.BaseMath
+  }
   componentWillUnmount() {
-    BaseData.Clear();
+    this.store.Clear();
   }
 
   render() {
     return (
       <React.Fragment>
-        {BaseData.isLoader === true ? (
+        {this.store.isLoader === true ? (
           <Loader />
         ) : (
           <div className='container_test'>
-            <WindowBoard>
+            <WindowBoard classWinDow='test_window'>
               <Wrap />
             </WindowBoard>
           </div>

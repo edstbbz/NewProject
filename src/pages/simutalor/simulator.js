@@ -1,17 +1,18 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { routesMap } from "../../router/routes";
-import { observer } from "mobx-react";
 import "./simulator.module.scss";
 import CreateTest from "../../components/createTest/createTest";
 import WindowBoard from "../../components/wrap/window";
 import Loader from "../../components/loading/loading";
 import Select from "../../components/Select/select";
 import BaseMath from "../../store/baseMath";
+import RedirectTo from "../../components/redirectBody/redirectBody";
 import Button from "../../components/button/Button";
+import { TO_DATABASE } from "../../api/httpConst";
+import { inject, observer } from "mobx-react";
 
-const url = "https://newapp-cf6c2-default-rtdb.firebaseio.com/tests.json";
-
+@inject("store")
 @observer
 export default class extends React.Component {
   state = {
@@ -42,6 +43,7 @@ export default class extends React.Component {
   }
 
   Upload = async () => {
+    let url = `${TO_DATABASE}tests.json`;
     try {
       let response = await fetch(url);
       let data = await response.json();
@@ -85,6 +87,7 @@ export default class extends React.Component {
       return (
         <li key={test.id} style={{ marginLeft: "0.5rem" }}>
           <NavLink
+            style={{ color: this.props.store.CreateTestBase.color }}
             to={"/simulator/base/" + ind}
             className="simulator_nav-item"
             onClick={(e) => BaseMath.Render(ind)}
@@ -114,7 +117,7 @@ export default class extends React.Component {
     });
   };
 
-  render() {
+  navigation = () => {
     const select = (
       <Select
         label="Select difficulty level:"
@@ -135,45 +138,84 @@ export default class extends React.Component {
       />
     );
     return (
+      <div className="simulator_nav">
+        <h1 className="simulator_nav-title">Navigation</h1>
+        <h2> {select} </h2>
+        <h3 style={{ margin: "0", padding: "0.5rem" }}>Test list:</h3>
+        {this.state.loading ? (
+          <Loader />
+        ) : (
+          <ul className="simulator_navpanel">
+            {this.state.operation == "Base"
+              ? this.renderBaseTest()
+              : this.renderAverageTest()}
+          </ul>
+        )}
+        {this.state.windowSize < 750 ? (
+          this.state.auth === true ? (
+            <Button type="primary" onClick={this.createView}>
+              Go to creating a new test
+            </Button>
+          ) : (
+            <RedirectTo
+            style={{margin: '30px'}}
+              btnText={"Authorization"}
+              onClick={this.toLoginPage}
+            >
+              To create new tests, you need to be authorized:
+            </RedirectTo>
+          )
+        ) : null}
+      </div>
+    );
+  };
+
+  createTest = () => {
+    return this.state.windowSize > 750 ? (
+      <div className="simulator_create">
+        <WindowBoard style={{ maxWidth: "750px" }}>
+          <CreateTest reRender={() => this.Upload()} />
+        </WindowBoard>
+      </div>
+    ) : null;
+  };
+
+  createTestSmallView = () => {
+    return (
+      <div className="simulator_create">
+        <WindowBoard
+          style={{ maxWidth: "750px", margin: "0", padding: "2rem" }}
+        >
+          <CreateTest reRender={() => this.Upload()} />
+          <Button type="primary" onClick={this.createView}>
+            Return to tests
+          </Button>
+        </WindowBoard>
+      </div>
+    );
+  };
+  toLoginPage = () => {
+    return this.props.history.push(routesMap.login);
+  };
+  render() {
+    return (
       <React.Fragment>
         {!this.state.create ? (
           <div className="simulator">
-            <div className="simulator_nav">
-              <h1 className="simulator_nav-title">Navigation</h1>
-              <h2> {select} </h2>
-              <h3 style={{ margin: "0", padding: "0.5rem" }}>Test list:</h3>
-              {this.state.loading ? (
-                <Loader />
-              ) : (
-                <ul className="simulator_navpanel">
-                  {this.state.operation == "Base"
-                    ? this.renderBaseTest()
-                    : this.renderAverageTest()}
-                </ul>
-              )}
-              {this.state.windowSize < 750 ? (
-                <Button type="primary" onClick={this.createView}>
-                  Go to creating a new test
-                </Button>
-              ) : null}
-            </div>
-            {this.state.windowSize > 750 ? (
-              <div className="simulator_create">
-                <WindowBoard style={{ maxWidth: "750px" }}>
-                  <CreateTest reRender={() => this.Upload()} />
-                </WindowBoard>
-              </div>
+            {this.navigation()}
+            {this.props.store.AuthStore.isAuth === true ? (
+              this.createTest()
+            ) : this.state.windowSize > 750 ? (
+              <RedirectTo
+                btnText={"Go to Authorization"}
+                onClick={this.toLoginPage}
+              >
+                To create new tests, you need to be authorized:
+              </RedirectTo>
             ) : null}
           </div>
         ) : (
-          <div className="simulator_create">
-            <WindowBoard style={{ maxWidth: "750px", margin: '0', padding: '2rem' }}>
-              <CreateTest reRender={() => this.Upload()} />
-              <Button type="primary" onClick={this.createView}>
-                Return to tests
-              </Button>
-            </WindowBoard>
-          </div>
+          this.createTestSmallView()
         )}
       </React.Fragment>
     );

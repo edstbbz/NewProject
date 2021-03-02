@@ -58,7 +58,7 @@ export default class extends React.Component {
           </div>
           <div className="wrap">
             <Button
-              style={{ height: "3rem", width: "50%" }}
+              className='check'
               type="primary"
               onClick={(e) =>
                 BaseData.change(i, document.querySelector(".value_area").value)
@@ -68,7 +68,7 @@ export default class extends React.Component {
             </Button>
             <Button
               type="help"
-              style={{ height: "3rem", width: "40%" }}
+              className='help'
               onClick={(e) =>
                 BaseData.help(i, document.querySelector(".answer"))
               }

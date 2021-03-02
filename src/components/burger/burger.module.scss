@@ -1,0 +1,91 @@
+.burger {
+  width: 30px;
+  height: 50px;
+  position: fixed;
+  left: 2%;
+  transition: opacity 0.22s ease-in;
+  top: 0;
+  z-index: 1250;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+  & span,
+  span:before,
+  span:after {
+    height: 3px;
+    width: 30px;
+    opacity: 0.9;
+    background: #000;
+    position: absolute;
+    top: 50%;
+    margin-top: -2px;
+  }
+  & span:before {
+    transition: all 0.2s;
+    content: "";
+    margin-top: -10px;
+  }
+  & span:after {
+    transition: all 0.2s;
+    content: "";
+    margin-top: 6px;
+  }
+  &_active {
+    left: 50%;
+    animation: slideTo 0.6s 1 ease-in;
+    @media screen and (max-width: 400px) {
+      left: 46%;
+    }
+    & span {
+      width: 0;
+    }
+    & span:before {
+      -webkit-transform: rotate(135deg);
+      -ms-transform: rotate(135deg);
+      transform: rotate(135deg);
+      margin: 0;
+    }
+    & span:after {
+      -webkit-transform: rotate(-135deg);
+      -ms-transform: rotate(-135deg);
+      transform: rotate(-135deg);
+      margin: 0;
+    }
+  }
+  &_close {
+    left: 2%;
+    transition: opacity 0.22s ease-in;
+    animation: slideDown 0.1s ease-in;
+  }
+  &:active{
+    outline: none;
+    border: none;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent
+  }
+}
+@keyframes slideTo {
+  0% {
+    left: 2%;
+  }
+  100% {
+    left: 50%;
+  }
+}
+@keyframes slideDown {
+  0% {
+    left: 50%;
+  }
+  100% {
+    left: 2%;
+  }
+}
+
+.dark {
+  & span,
+  span:before,
+  span:after {
+    background: #f3f3f3;
+  }
+}

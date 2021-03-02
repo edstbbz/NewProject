@@ -21,11 +21,19 @@
     }
   }
   @media screen and (max-width: 1050px) {
-    margin: 2rem 1rem;
+   margin: 1rem 1rem;
   }
   @media screen and (max-width: 650px) {
     margin: 1rem 1rem;
   }
+}
+.second {
+  @media screen and (max-width: 1050px) {
+    margin: 0 1rem 2rem 1rem;
+   }
+   @media screen and (max-width: 650px) {
+    margin: 0 1rem 1rem 1rem;
+   }
 }
 .dots {
   content: "";

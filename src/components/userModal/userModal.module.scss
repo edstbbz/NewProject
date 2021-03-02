@@ -1,0 +1,91 @@
+.usermodal {
+  &_body {
+    z-index: 77;
+    max-width: 250px;
+    position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    top: 72px;
+    right: 5%;
+    opacity: 1;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: #fff;
+    box-shadow: 2px 2px 4px rgb(10, 10, 10);
+    @media screen and (max-width: 650px) {
+      top: 54px
+    }
+  }
+  &_footer {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+  }
+  &_section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding: 1rem;
+    border-top: 1px solid gainsboro;
+  }
+  &_name {
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  &_btn {
+      padding: 0.2rem 1rem;
+      font-weight: normal;
+      font-size: 1rem;
+      margin: 0;
+  }
+  &_profile{
+      text-decoration: none;
+      font-weight: bolder;
+      &:hover {
+          text-decoration: underline;
+      }
+  }
+  &-enter {
+    opacity: 0;
+    transform: translateY(-350px);
+  }
+  
+  &-enter-done {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity, transform 0.2s ease;
+  }
+  &-exit-active {
+    transform: translateX(400px);
+    transition: transform 0.2s ease-in-out;
+  }
+
+}
+
+.user_avatar {
+  display: inline-block;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  &::before {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    content: "";
+    opacity: 0.9;
+    border-radius: 50px;
+    background: #26a69a;
+  }
+  h1 {
+    font-family: 'Helvetica Neue', sans-serif;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    top: 13%;
+    color: white;
+}
+}

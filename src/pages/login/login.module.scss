@@ -17,19 +17,24 @@
     width: calc(100% - 1rem);
     height: 2rem;
     padding-left: 0.5rem;
-    border: 0.15rem solid rgb(161, 161, 161);
+    border: 0.1rem solid rgb(161, 161, 161);
     border-radius: 0.5rem;
+    box-sizing: content-box;
+    @media screen and (max-width: 400px) {
+      font-size: 0.7rem;
+    }
     &:active {
       outline: none;
     }
     &:focus {
       outline: none;
+      transition: all 0.2s;
+      border: 0.1rem solid rgba(255, 198, 41, 0.658);
+      box-shadow: 0px 1px 0px rgb(255, 198, 41), 0px -1px 0px rgb(255, 198, 41),
+        1px 0px 0px rgb(255, 198, 41), -1px 0px 0px rgb(255, 198, 41);
     }
     &::placeholder {
       padding-left: 2px;
-    }
-    @media screen and (max-width: 650px) {
-      height: 1.5rem;
     }
   }
   .errorMessage {
@@ -37,7 +42,14 @@
     font-size: 0.8rem;
     height: 1rem;
     margin-left: 1rem;
-    transform: translateY(30%);
+    transform: translateY(40%);
+    @media screen and (max-width: 400px) {
+      height: 0.8rem;
+      margin: 0;
+      margin-left: 0.7rem;
+      font-size: 0.6rem;
+      transform: translateY(78%);
+    }
   }
 }
 
@@ -48,7 +60,7 @@
     min-width: 240px;
     padding: 0;
   }
-  
+
   h2 {
     @media screen and (max-width: 450px) {
       margin: 0;
@@ -61,4 +73,22 @@
   @media screen and (max-width: 350px) {
     height: 2.5rem;
   }
+}
+
+.authFieldName {
+  @media screen and (max-width: 400px) {
+    margin: 0.5rem 0rem;
+    line-height: 0.9rem;
+  }
+}
+
+.password_area {
+  position: relative;
+}
+
+.password_eye {
+  position: absolute;
+  top: 11px;
+  right: 10px;
+  cursor: pointer;
 }

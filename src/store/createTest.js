@@ -1,8 +1,6 @@
 import React from "react";
 import { observable, computed, action } from "mobx";
 
-
-
 class CreateTest {
  
   @observable testForm = [
@@ -34,6 +32,15 @@ class CreateTest {
       validator: (val) => /^[0-9]{1,15}$/.test(val),
     },
   ];
+
+  @observable color = 'black'
+
+  @action light() {
+    this.color = '#f3f3f3'
+  }
+  @action dark() {
+    this.color = 'black'
+  }
 
   @computed get isValid() {
     return this.testForm.every((field) => field.valid);

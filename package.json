@@ -11,6 +11,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "history": "^5.0.0",
     "mobx": "^5.14.2",
     "mobx-react": "^6.1.4",
     "normalize.css": "^8.0.1",
@@ -19,6 +23,7 @@
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.1.2",
     "react-slick": "^0.28.0",
+    "react-transition-group": "^4.4.1",
     "regenerator-runtime": "^0.13.7",
     "slick-carousel": "^1.8.1"
   },

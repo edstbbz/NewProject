@@ -5,14 +5,14 @@ import Slider from "../../components/slider/slider";
 import WindowBoard from "../../components/wrap/window";
 import "./home.module.scss";
 import Button from "../../components/button/Button";
-
+import ErrorMessage from "../../components/errorMessage/errorMessage";
 export default class extends React.Component {
-  
+
   render() {
     return (
       <div className="home_container">
-        <div className='home_wrap'>
-          <WindowBoard classWindow='home_height'>
+        <div className="home_wrap">
+          <WindowBoard classWindow="home_height">
             <div className="start_info">
               <h1>Hello, this is a math simulator! </h1>
               <h2>Here you can practice your skills in:</h2>
@@ -31,8 +31,8 @@ export default class extends React.Component {
             </div>
           </WindowBoard>
         </div>
-        <div className='home_wrap'>
-          <WindowBoard classWindow='home_height'>
+        <div className="home_wrap">
+          <WindowBoard classWindow="home_height" classWinDow='second'>
             <h1 className="slider_info">Math is interesting!</h1>
             <Slider />
           </WindowBoard>

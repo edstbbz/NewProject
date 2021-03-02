@@ -1,3 +1,4 @@
+import React from 'react'
 import Login from '../pages/login/login';
 import Simulator from '../pages/simutalor/simulator';
 import Base from '../pages/simutalor/base';
@@ -20,7 +21,7 @@ const routes = [
     {
         name: 'simulator',
         path: '/simulator',
-        component: Simulator,
+        RENDER: (props) => <Simulator {...props}/>,
         exact: true
     },
     {
