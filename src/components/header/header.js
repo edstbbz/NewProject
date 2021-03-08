@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 import { inject, observer } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -43,10 +43,9 @@ export default class extends React.Component {
   componentDidMount() {
     this.setState({ width: window.innerWidth });
     window.addEventListener("resize", this.resize);
-    if(this.props.store.AuthStore.isAuth === true){
+    if(this.props.store.AuthStore.isAuth){
       document.addEventListener("click", this.handleClickOutside, true);
     }
-    
   }
 
   toggleUserMenu = () => {
@@ -132,12 +131,8 @@ export default class extends React.Component {
 
   changeThemeHandler = () => {
     let body = document.querySelector("body");
-    let a = document.getElementsByTagName("a");
     if (this.state.blackTheme) {
       body.style = "";
-      for (let item of a) {
-        item.style.color = "black";
-      }
       this.setState({
         stroke: "black",
         fill: "yellow",
@@ -148,9 +143,6 @@ export default class extends React.Component {
     } else {
       body.style.backgroundColor = "black";
       body.style.color = "#f3f3f3";
-      for (let item of a) {
-        item.style.color = "#f3f3f3";
-      }
       this.setState({
         stroke: "#f3f3f3",
         fill: "",
@@ -232,6 +224,7 @@ export default class extends React.Component {
                 >
                   {store.isUserName}
                 </a>
+                {document.addEventListener("click", this.handleClickOutside, true)}
               </div>
             ) : null}
             <ToggleTheme

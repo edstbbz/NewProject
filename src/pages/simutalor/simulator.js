@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { routesMap } from "../../router/routes";
 import "./simulator.module.scss";
-import CreateTest from "../../components/createTest/createTest";
+import CreateTest from "../../forms/createTest/createTest";
 import WindowBoard from "../../components/wrap/window";
 import Loader from "../../components/loading/loading";
 import Select from "../../components/Select/select";
@@ -152,13 +152,19 @@ export default class extends React.Component {
           </ul>
         )}
         {this.state.windowSize < 750 ? (
-          this.state.auth === true ? (
-            <Button type="primary" onClick={this.createView}>
-              Go to creating a new test
-            </Button>
+          this.props.store.AuthStore.isAuth === true ? (
+            <div className="simulator_createtest-btn">
+              <Button
+                className="createtest-btn"
+                type="primary"
+                onClick={this.createView}
+              >
+                Go to creating a new test
+              </Button>
+            </div>
           ) : (
             <RedirectTo
-            style={{margin: '30px'}}
+              style={{ margin: "30px" }}
               btnText={"Authorization"}
               onClick={this.toLoginPage}
             >
@@ -173,7 +179,7 @@ export default class extends React.Component {
   createTest = () => {
     return this.state.windowSize > 750 ? (
       <div className="simulator_create">
-        <WindowBoard style={{ maxWidth: "750px" }}>
+        <WindowBoard classWinDow='simulator-mod' style={{ maxWidth: "750px" }}>
           <CreateTest reRender={() => this.Upload()} />
         </WindowBoard>
       </div>
@@ -182,15 +188,17 @@ export default class extends React.Component {
 
   createTestSmallView = () => {
     return (
-      <div className="simulator_create">
-        <WindowBoard
-          style={{ maxWidth: "750px", margin: "0", padding: "2rem" }}
-        >
-          <CreateTest reRender={() => this.Upload()} />
-          <Button type="primary" onClick={this.createView}>
-            Return to tests
-          </Button>
-        </WindowBoard>
+      <div className='simulator_small-create'>
+        <div className="simulator_create">
+          <WindowBoard
+            style={{ maxWidth: "750px" }}
+          >
+            <CreateTest reRender={() => this.Upload()} />
+            <Button type="primary" onClick={this.createView}>
+              Return to tests
+            </Button>
+          </WindowBoard>
+        </div>
       </div>
     );
   };

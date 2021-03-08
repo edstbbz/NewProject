@@ -1,7 +1,12 @@
 import React from "react";
 import { observable, computed, action } from "mobx";
 import fetchHelper from "../api/fetchHelper";
-import { SIGN_UP_USER, TO_DATABASE, LOG_IN_USER } from "../api/httpConst";
+import {
+  SIGN_UP_USER,
+  TO_DATABASE,
+  LOG_IN_USER,
+  REFRESH_TOKEN,
+} from "../api/httpConst";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 class Order {
@@ -13,7 +18,9 @@ class Order {
       value: "",
       placeholder: "Enter your name",
       errorMessage: "Incorrect, example: John",
+      touched: false,
       valid: null,
+      class: null,
       validator: (val) => /^[aA-zZ]{2,30}$/.test(val),
     },
     {
@@ -23,8 +30,11 @@ class Order {
       value: "",
       placeholder: "Enter your email",
       errorMessage: "Incorrect, example: User@mail.com",
+      touched: false,
       valid: null,
-      validator: (val) => /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(val),
+      class: null,
+      validator: (val) =>
+        /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/.test(val),
     },
     {
       name: "password",
@@ -32,12 +42,15 @@ class Order {
       label: "Password:",
       value: "",
       placeholder: "Enter your password",
-      errorMessage: "Enter correct password (6-12 symbol)",
+      errorMessage: "Password length can't be less then 6",
+      touched: false,
       valid: null,
-      validator: (val) => /^[0-9]{6,12}$/.test(val),
+      class: null,
+      validator: (val) => /^[A-Za-z0-9]{6,12}$/.test(val),
     },
   ];
 
+  @observable stayLoggedIn = false;
   @observable message = null;
   @observable disabled = false;
   @observable auth = false;
@@ -48,9 +61,11 @@ class Order {
     let disable = this.disabled;
     return disable;
   }
+
   @computed get isAuth() {
     let auth = this.auth;
     return auth;
+   
   }
 
   @computed get isUserName() {
@@ -82,27 +97,116 @@ class Order {
     return info;
   }
 
-  @action showPassword(type){
+  @action autoLogIn() {
+    const token = localStorage.getItem("idToken");
+    const expirationDate = new Date(localStorage.getItem("expirationDate"));
+    const stay = Boolean(localStorage.getItem("stay"));
+    let time = (expirationDate.getTime() - new Date().getTime()) / 1000;
+
+    if (!token) {
+      this.logOut();
+    }
+    if (expirationDate <= new Date() && stay !== true) {
+      this.logOut();
+    }
+    if (expirationDate >= new Date() && stay !== true) {
+      this.auth = true;
+      this.autoLogOut((expirationDate.getTime() - new Date().getTime()) / 1000);
+    }
+    if (stay === true) {
+      this.auth = true;
+      setTimeout(() => {
+        this.refreshUserToken();
+      }, time * 1000 );
+      
+    }
+  }
+
+  @action refreshUserToken = async () => {
+    const refreshData = {
+      grant_type: "refresh_token",
+      refresh_token: localStorage.getItem("refreshToken"),
+    };
+    const url = REFRESH_TOKEN;
+    const method = "POST";
+    const type = "application / x-www-form-urlencoded";
+    try {
+      let response = await fetchHelper(url, method, refreshData, type);
+      let data = await response.json();
+      if (response.ok) {
+        const expirationDate = new Date(
+          new Date().getTime() + data.expires_in * 1000
+        );
+        localStorage.setItem("idToken", data.id_token);
+        localStorage.setItem("refreshToken", data.refresh_token);
+        localStorage.setItem("expirationDate", expirationDate);
+        localStorage.setItem("time", data.expires_in);
+        this.auth = true;
+      }
+      if (!response.ok) {
+        this.message = data.error.message;
+        this.reset();
+        throw new Error(data.error.message);
+      }
+    } catch (e) {
+      this.message = e;
+    }
+  };
+
+  @action autoLogOut(time) {
+    if (this.auth === true && this.stayLoggedIn === false) {
+      setTimeout(() => {
+        this.logOut();
+        this.message = "SESSION_OUT";
+        this.reset();
+      }, time * 1000);
+    }
+  }
+
+  @action showPassword() {
     let field = this.formData[2];
     let key = false;
-    if(field.type == 'password' && key === false){
-      this.showPassIcon = faEyeSlash
-      key = true
-      return field.type = 'text'
-      
+    if (field.type == "password" && key === false) {
+      this.showPassIcon = faEyeSlash;
+      key = true;
+      return (field.type = "text");
     }
-    if(field.type == 'text'){
-      this.showPassIcon = faEye
-      key = false
-      return field.type = 'password'
-      
+    if (field.type == "text") {
+      this.showPassIcon = faEye;
+      key = false;
+      return (field.type = "password");
     }
+  }
+
+  @action blur(i, valid, value) {
+    let field = this.formData[i];
+    if (valid || value.length === 0) {
+      field.touched = false;
+    } else {
+      field.touched = true;
+    }
+    if (valid) {
+      field.class = "valid";
+    }
+    if (!valid && value.length !== 0) {
+      field.class = "invalid";
+    }
+    if (value.length === 0) {
+      field.class = "";
+    }
+  }
+
+  @action checked() {
+    this.stayLoggedIn = !this.stayLoggedIn;
   }
 
   @action change(ind, value) {
     let field = this.formData[ind];
     field.value = value;
     field.valid = field.validator(field.value);
+    if (field.valid || field.class === "vaild") {
+      field.class = "";
+    }
   }
 
   @action reset() {
@@ -149,12 +253,19 @@ class Order {
       let response = await fetchHelper(url, method, AuthData);
       let data = await response.json();
       if (response.ok) {
+        const expirationDate = new Date(
+          new Date().getTime() + data.expiresIn * 1000
+        );
         localStorage.setItem("idToken", data.idToken);
         localStorage.setItem("refreshToken", data.refreshToken);
+        localStorage.setItem("expirationDate", expirationDate);
+        localStorage.setItem("time", data.expiresIn);
         await this.userDataToDB(data.localId);
         this.disabled = false;
         this.auth = true;
         this.userName = localStorage.getItem("name");
+        localStorage.setItem("stay", this.stayLoggedIn);
+        this.autoLogOut(data.expiresIn);
       }
       if (!response.ok) {
         this.message = data.error.message;
@@ -197,11 +308,18 @@ class Order {
       let response = await fetchHelper(url, method, AuthData);
       let data = await response.json();
       if (response.ok) {
+        const expirationDate = new Date(
+          new Date().getTime() + data.expiresIn * 1000
+        );
         localStorage.setItem("idToken", data.idToken);
         localStorage.setItem("refreshToken", data.refreshToken);
+        localStorage.setItem("expirationDate", expirationDate);
+        localStorage.setItem("time", data.expiresIn);
+        localStorage.setItem("stay", this.stayLoggedIn);
         this.disabled = false;
         this.auth = true;
         this.userName = localStorage.getItem("name");
+        this.autoLogOut(data.expiresIn);
         this.reset();
       }
       if (!response.ok) {

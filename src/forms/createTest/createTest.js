@@ -1,10 +1,11 @@
 import React from "react";
-import Select from "../Select/select";
+import Select from "../../components/Select/select";
 import { inject, observer } from "mobx-react";
 import "./createTest.module.scss";
-import Button from "../button/Button";
+import Button from "../../components/button/Button";
 import fetchHelper from "../../api/fetchHelper";
 import { TO_DATABASE } from "../../api/httpConst";
+import RadioButton from "../../components/radioButton/radio";
 
 @inject("store")
 @observer
@@ -12,6 +13,7 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     this.store = this.props.store.CreateTestBase;
+    this.authStore = this.props.store.AuthStore;
   }
   state = {
     test: [],
@@ -19,7 +21,6 @@ export default class extends React.Component {
     testName: "",
     requiredSelect: true,
     changeForm: false,
-    returnVisible: true,
     valid: null,
   };
 
@@ -51,7 +52,6 @@ export default class extends React.Component {
 
     this.setState({
       test,
-      returnVisible: false,
       operation: "\u002B",
     });
 
@@ -60,11 +60,16 @@ export default class extends React.Component {
 
   createTestHandler = async (e, props) => {
     e.preventDefault();
-    let url = `${TO_DATABASE}tests.json`;
+    const token = localStorage.getItem("idToken");
+    let url = `${TO_DATABASE}tests.json?auth=${token}`;
     let data = this.state.test;
     let method = "POST";
+    const expirationDate = new Date(localStorage.getItem("expirationDate"));
 
     try {
+      if (expirationDate <= new Date()) {
+        await this.authStore.refreshUserToken();
+      }
       await fetchHelper(url, method, data);
 
       this.setState({
@@ -117,6 +122,7 @@ export default class extends React.Component {
   resetValueHandler = (e) => {
     this.store.testForm.map((field) => {
       field.value = "";
+      field.valid = null;
     });
   };
 
@@ -188,9 +194,9 @@ export default class extends React.Component {
                   }}
                 >
                   <h2>Create new test:</h2>
-                  {this.state.returnVisible == true ? (
+                  {this.state.test.length < 5 ? (
                     <Button
-                      style={{ height: "3rem", width: "30%" }}
+                      className="btn-mod"
                       type="primary"
                       onClick={this.returnToTestName}
                     >
@@ -198,7 +204,7 @@ export default class extends React.Component {
                     </Button>
                   ) : (
                     <Button
-                      style={{ height: "3rem", width: "30%" }}
+                      className="btn-mod"
                       type="success"
                       onClick={this.createTestHandler}
                     >
@@ -226,6 +232,12 @@ export default class extends React.Component {
               <React.Fragment>
                 <h2>Change test name: </h2>
                 <hr />
+                <div>
+                Change difficult: 
+                
+                <RadioButton check={true}>Base</RadioButton>
+                <RadioButton check={false}>Average</RadioButton>
+                </div>
                 <p style={{ color: "rgba(252, 63, 63, 0.644)" }}>
                   {this.state.valid || this.state.testName == ""
                     ? ""
@@ -240,14 +252,18 @@ export default class extends React.Component {
                   placeholder="Enter test name: "
                 />
                 <Button
-                  style={{ height: "3rem", width: "100%", margin: "1rem 0rem" }}
+                  style={{
+                    height: "3rem",
+                    width: "100%",
+                    margin: "0rem 0rem 1rem",
+                  }}
                   type="success"
                   onClick={this.goToCreateHandler}
                   disabled={!this.state.valid}
                 >
                   Go to create
                 </Button>
-                <hr />
+                <hr id="hr" />
                 <p
                   style={{
                     color: "rgba(252, 63, 63, 0.644)",

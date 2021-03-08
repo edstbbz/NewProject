@@ -5,7 +5,6 @@ import Slider from "../../components/slider/slider";
 import WindowBoard from "../../components/wrap/window";
 import "./home.module.scss";
 import Button from "../../components/button/Button";
-import ErrorMessage from "../../components/errorMessage/errorMessage";
 export default class extends React.Component {
 
   render() {

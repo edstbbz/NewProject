@@ -1,0 +1,25 @@
+.radio_btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  top: 1px;
+  border: 1px solid #999;
+  transition: 0.2s all linear;
+  outline: none;
+  margin-right: 5px;
+  position: relative;
+}
+
+input:checked {
+  border: 1px solid rgb(87, 87, 87);
+  background: rgb(252, 193, 0);
+}
+
+.radio_field {
+  display: inline-flex;
+  padding: 0.2rem;
+}

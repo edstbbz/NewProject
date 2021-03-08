@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import AuthForm from "../../components/authForm/authForm";
+import AuthForm from "../components/authForm/authForm";
 import { inject, observer } from "mobx-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./login.module.scss";
+import "../pages/login/login.module.scss";
+import CheckBox from "../components/checkbox/checkbox";
 
 @inject("store")
 @observer
@@ -36,20 +37,23 @@ export default class extends React.Component {
         <label key={field.name} className="authLabel">
           <div className="authName">
             <p className='authFieldName'> {field.label} </p>
-            <p className="errorMessage">
+            <small className="errorMessage">
               {field.valid === null || field.valid || field.value === ""
                 ? ""
-                : field.errorMessage}
-            </p>
+                : !field.valid && field.touched ? field.errorMessage
+                : null}
+            </small>
           </div>
 
           {field.name === "password"  ? (
             <div className="password_area">
               <input
+                className={field.class}
                 type={field.type}
                 placeholder={field.placeholder}
                 value={field.value}
                 onChange={(e) => this.store.change(i, e.target.value)}
+                onBlur={(e) => this.store.blur(i, field.valid, e.target.value) }
               ></input>
               <FontAwesomeIcon
                 className="password_eye"
@@ -63,10 +67,12 @@ export default class extends React.Component {
             </div>
           ) : (
             <input
+              className={field.class}
               type={field.type}
               placeholder={field.placeholder}
               value={field.value}
               onChange={(e) => this.store.change(i, e.target.value)}
+              onBlur={(e) => this.store.blur(i, field.valid, e.target.value)}
             ></input>
           )}
         </label>
@@ -87,6 +93,7 @@ export default class extends React.Component {
         auth={this.props.auth}
         clientWidth={this.state.width}
         onSubmit={this.submitHandler}
+        check={<CheckBox checked={this.store.stayLoggedIn} onChange={() => this.store.checked()}>Stay logged in?</CheckBox>}
       >
         {this.returnFormFields()}
       </AuthForm>

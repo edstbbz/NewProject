@@ -11,10 +11,10 @@ const AuthForm = (props) => {
             <h2>{props.name}</h2>
             <hr />
             {props.children}
-            <pre/>
+            {props.check}
             <Button
               type="success"
-              style={{ height: "3rem", width: "100%", margin: "1rem 0rem"}}
+              style={{ height: "3rem", width: "100%", margin: "0 0 1rem 0"}}
               disabled={props.disabled}
               onClick={props.onClick}
             >

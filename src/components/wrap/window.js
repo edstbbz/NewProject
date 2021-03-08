@@ -8,7 +8,7 @@ const WindowBoard = (props) => {
     <React.Fragment>
       <div className={classes1.join(" ")} style={props.style}>
         <div className="window_footer">
-          <div className="dots"></div>
+          <div className="dots"><div className='dots_dot'></div></div>
         </div>
         <div className={classes.join(" ")}>{props.children}</div>
       </div>

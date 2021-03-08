@@ -7,6 +7,7 @@
   &_title {
     padding: 1rem;
     margin: 0rem;
+    cursor: context-menu;
     @media screen and (max-width: 650px) {
       padding: 0.3rem 1rem;
       line-height: 2.5rem;
@@ -35,7 +36,7 @@
     padding-right: 3rem;
     &-item {
       text-decoration: none;
-      color: #000;
+      color: inherit;
       &:hover {
         text-decoration: underline;
       }

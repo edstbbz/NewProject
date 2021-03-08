@@ -8,6 +8,9 @@
   font-weight: bold;
   font-size: 1.2rem;
   cursor: pointer;
+  @media screen and (max-width: 650px) {
+    font-size: 1rem;
+  }
 }
 
 .Button:focus {
@@ -39,3 +42,4 @@
 .help {
   background: rgba(184, 127, 238, 0.918);
 }
+

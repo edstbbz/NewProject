@@ -33,9 +33,10 @@
   }
   &_active {
     left: 50%;
-    animation: slideTo 0.6s 1 ease-in;
+    animation: slideTo 0.6s 1 ease;
     @media screen and (max-width: 400px) {
       left: 46%;
+      animation: slideToSmall 0.6s 1 ease;
     }
     & span {
       width: 0;
@@ -71,6 +72,14 @@
   }
   100% {
     left: 50%;
+  }
+}
+@keyframes slideToSmall {
+  0% {
+    left: 2%;
+  }
+  100% {
+    left: 46%;
   }
 }
 @keyframes slideDown {

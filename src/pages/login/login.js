@@ -1,12 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import AuthModel from "./authModel";
+import AuthModel from "../../forms/authModel";
 import { inject, observer } from "mobx-react";
 import "./login.module.scss";
 import { NavLink, Redirect } from "react-router-dom";
 import { routesMap } from "../../router/routes";
-import { messages } from "../../constants";
-import ErrorMessage from "../../components/errorMessage/errorMessage";
+
 
 @inject('store')
 @observer
@@ -44,12 +43,7 @@ export default class extends React.Component {
             </span>
           }
         />
-        {store.isMessage === 'INVALID_EMAIL' ? (
-          <ErrorMessage>{messages.name_not_found}</ErrorMessage>
-        ) : null}
-        {store.isMessage === "INVALID_PASSWORD" ? (
-          <ErrorMessage>{messages.invalid_password}</ErrorMessage>
-        ) : null}
+       
       </React.Fragment>
     );
   }

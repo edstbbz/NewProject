@@ -71,8 +71,17 @@
 .home_wrap {
   margin: 2rem;
   width: calc(50% - 4rem);
+  &:first-child{
+    @media screen and (max-width: 1050px) {
+      margin: 1rem 1rem 0rem 1rem;
+    }
+    @media screen and (max-width: 750px) {
+      width: 100%;
+      margin: 0;
+    }
+  }
   @media screen and (max-width: 1050px) {
-    margin: 1rem;
+    margin: 1rem 1rem 1rem 1rem;
     width: calc(100% - 2rem);
   }
   @media screen and (max-width: 750px) {

@@ -1,7 +1,7 @@
 const defaultType = "application/json;charset=utf-8"
 
 const fetchHelper = ( url, method, data, type = defaultType ) => {
-    console.log(data)
+
   const POST = {
     method: "POST",
     headers: {
