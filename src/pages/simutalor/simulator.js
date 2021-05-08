@@ -11,6 +11,7 @@ import RedirectTo from "../../components/redirectBody/redirectBody";
 import Button from "../../components/button/Button";
 import { TO_DATABASE } from "../../api/httpConst";
 import { inject, observer } from "mobx-react";
+import AdvancedMath from "../../forms/createAdvTest/advTest";
 
 @inject("store")
 @observer

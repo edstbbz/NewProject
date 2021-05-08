@@ -6,6 +6,9 @@ import Button from "../../components/button/Button";
 import fetchHelper from "../../api/fetchHelper";
 import { TO_DATABASE } from "../../api/httpConst";
 import RadioButton from "../../components/radioButton/radio";
+import AdvancedMath from "../createAdvTest/advTest";
+import ChangeTestName from "./createTestChange";
+import BaseMath from "../createBaseTest/baseMath";
 
 @inject("store")
 @observer
@@ -22,6 +25,15 @@ export default class extends React.Component {
     requiredSelect: true,
     changeForm: false,
     valid: null,
+    diff: false,
+  };
+
+  baseRadio = () => {
+    this.setState({ diff: (this.state.diff = false) });
+  };
+
+  averageRadio = () => {
+    this.setState({ diff: (this.state.diff = true) });
   };
 
   addQuestionHandler = (e) => {
@@ -110,6 +122,7 @@ export default class extends React.Component {
   returnToTestName = () => {
     this.setState({
       changeForm: false,
+      diff: false,
     });
   };
 
@@ -127,59 +140,6 @@ export default class extends React.Component {
   };
 
   render() {
-    let formFields = this.store.testForm.map((field, i) => {
-      return (
-        <label key={field.name} className="authLabel">
-          <div className="authName">
-            <p> {field.label} </p>
-            <p className="errorMessage">
-              {field.valid === null || field.valid ? "" : field.errorMessage}
-            </p>
-          </div>
-
-          <input
-            type="text"
-            placeholder={field.placeholder}
-            value={field.value}
-            onChange={(e) => this.store.change(i, e.target.value)}
-          ></input>
-        </label>
-      );
-    });
-
-    const select = (
-      <Select
-        style={{
-          fontSize: "1.5rem",
-          height: "2.5rem",
-          width: "20%",
-          margin: "0",
-        }}
-        label="Change operation:"
-        value={this.state.operation}
-        required={this.state.requiredSelect}
-        onChange={this.selectChangeHandler}
-        options={[
-          {
-            text: "\u002B",
-            value: "\u002B",
-          },
-          {
-            text: "\u2212",
-            value: "\u2212",
-          },
-          {
-            text: "\u00D7",
-            value: "\u00D7",
-          },
-          {
-            text: "\u00F7",
-            value: "\u00F7",
-          },
-        ]}
-      />
-    );
-
     return (
       <React.Fragment>
         <div className="createTest">
@@ -189,7 +149,7 @@ export default class extends React.Component {
                 <div
                   style={{
                     display: "flex",
-                    justifyContent: "space-around",
+                    justifyContent: "space-between",
                     alignItems: "center",
                   }}
                 >
@@ -214,8 +174,16 @@ export default class extends React.Component {
                 </div>
 
                 <hr />
-                {formFields}
-                {select}
+                {this.state.diff === false ? (
+                  <BaseMath
+                    operation={this.state.operation}
+                    requiredSelect={this.state.requiredSelect}
+                    selectChangeHandler={this.selectChangeHandler}
+                  />
+                ) : (
+                  <AdvancedMath />
+                )}
+
                 <hr />
 
                 <Button
@@ -229,51 +197,14 @@ export default class extends React.Component {
                 <p>Added question: {this.state.test.length}</p>
               </React.Fragment>
             ) : (
-              <React.Fragment>
-                <h2>Change test name: </h2>
-                <hr />
-                <div>
-                Change difficult: 
-                
-                <RadioButton check={true}>Base</RadioButton>
-                <RadioButton check={false}>Average</RadioButton>
-                </div>
-                <p style={{ color: "rgba(252, 63, 63, 0.644)" }}>
-                  {this.state.valid || this.state.testName == ""
-                    ? ""
-                    : "Enter correct text name (4-30 symbol)"}
-                </p>
-                <input
-                  className="input"
-                  id="input"
-                  type="text"
-                  value={this.state.testName}
-                  onChange={(e) => this.testNameChangeHandler(e.target.value)}
-                  placeholder="Enter test name: "
-                />
-                <Button
-                  style={{
-                    height: "3rem",
-                    width: "100%",
-                    margin: "0rem 0rem 1rem",
-                  }}
-                  type="success"
-                  onClick={this.goToCreateHandler}
-                  disabled={!this.state.valid}
-                >
-                  Go to create
-                </Button>
-                <hr id="hr" />
-                <p
-                  style={{
-                    color: "rgba(252, 63, 63, 0.644)",
-                    fontSize: "2.5 rem",
-                  }}
-                >
-                  In order to create a test, you need to create at least 5
-                  tasks!
-                </p>
-              </React.Fragment>
+              <ChangeTestName
+                baseRadio={this.baseRadio}
+                averageRadio={this.averageRadio}
+                valid={this.state.valid}
+                testName={this.state.testName}
+                onChange={(e) => this.testNameChangeHandler(e.target.value)}
+                onClick={this.goToCreateHandler}
+              />
             )}
           </form>
         </div>

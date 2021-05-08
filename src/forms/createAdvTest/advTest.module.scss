@@ -1,0 +1,115 @@
+.adv_btnfield {
+  display: flex;
+}
+
+.adv_btn {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  border: none;
+  color: #000;
+  margin: 0.1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  background: rgba(226, 225, 218, 0.6);
+  cursor: pointer;
+  @media screen and (max-width: 650px) {
+    font-size: 1rem;
+    line-height: 1rem;
+  }
+}
+
+.adv_btn:focus {
+  outline: none;
+}
+
+.adv_btn:active {
+  box-shadow: inset 2px 2px 1px rgba(0, 0, 0, 0.3);
+  outline: none;
+  border: none;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.advancedInput {
+  display: flex;
+  margin: 0.5rem 0;
+  &_label {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  &_input {
+    padding-left: 0.2rem;
+    margin-left: 0.5rem;
+    height: 2rem;
+    border: 0.1rem solid #c1c1c1;
+    border-radius: 0.4rem;
+    vertical-align: top;
+    font-size: 1rem;
+    width: 77%;
+    &:active {
+      outline: none;
+    }
+    &:focus {
+      outline: none;
+      transition: all 0.2s;
+      border: 0.1rem solid rgba(255, 198, 41, 0.658);
+      box-shadow: 0px 1px 0px rgb(255, 198, 41), 0px -1px 0px rgb(255, 198, 41),
+        1px 0px 0px rgb(255, 198, 41), -1px 0px 0px rgb(255, 198, 41);
+    }
+  }
+}
+
+.advanceArea {
+  position: relative;
+  &_label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    p {
+      margin: 0.5rem 0;
+    }
+  }
+  &_area {
+    border-radius: 8px;
+    padding: 1rem;
+    width: 95%;
+    height: 100px;
+    outline: none;
+    -moz-appearance: none;
+    border: 1px solid #c1c1c1;
+    background: transparent;
+    color: currentColor;
+    resize: none;
+    overflow: auto;
+  }
+  &_view {
+    word-wrap: break-word;
+    word-break: break-word;
+    position: absolute;
+    opacity: 0.7;
+  }
+}
+
+textarea::-webkit-scrollbar {
+  width: 12px;
+  background: transparent;
+}
+
+textarea::-webkit-scrollbar-track {
+  border-radius: 8px;
+  border: 3px solid transparent;
+  background: transparent;
+  background-clip: content-box;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 3px solid transparent;
+  box-shadow: inset 0px 0px 0px 5px #6d6d6d7a;
+}
+
+textarea::-webkit-scrollbar-button {
+  height: 5px;
+}
